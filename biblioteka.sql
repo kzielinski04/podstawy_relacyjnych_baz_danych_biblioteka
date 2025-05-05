@@ -1099,7 +1099,6 @@ VALUES
 	('anna_kaczmarek', '25d55ad283aa400af464c76d713c07ad07ad07ad07ad07ad07ad07ad07ad07ad', 'anna.kaczmarek@biblioteka.com', 'user', '2024-07-17', '2024-10-29', 1),
 	('michal_szewczyk', 'fcea920f7412b5da7be0cf42b8c937599375993759937599375993759937599375', 'michal.szewczyk@biblioteka.com', 'user', '2024-07-18', '2024-10-28', 1),
 	('joanna_witkowska', 'e99a18c428cb38d5f260853678922e0322e0322e0322e0322e0322e0322e0322', 'joanna.witkowska@biblioteka.com', 'user', '2024-07-19', '2024-10-27', 1),
-	('tomasz_dabrowski', '25f9e794323b453885f5181f1b624d0b24d0b24d0b24d0b24d0b24d0b24d0b24', 'tomasz.dabrowski@biblioteka.com', 'admin', '2024-07-20', '2024-10-26', 1),
 	('agnieszka_krol', 'd8578edf8458ce06fbc5bb76a58c5ca48c5ca48c5ca48c5ca48c5ca48c5ca48c', 'agnieszka.krol@biblioteka.com', 'admin', '2024-07-21', '2024-10-25', 1),
 	('marcin_wrobel', '5f4dcc3b5aa765d61d8327deb882cf9882cf9882cf9882cf9882cf9882cf9882c', 'marcin.wrobel@biblioteka.com', 'librarian', '2024-07-22', '2024-10-24', 1),
 	('katarzyna_mazur', 'e10adc3949ba59abbe56e057f20f883ef883ef883ef883ef883ef883ef883ef883', 'katarzyna.mazur@biblioteka.com', 'librarian', '2024-07-23', '2024-10-23', 1),
