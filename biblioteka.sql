@@ -937,7 +937,7 @@ VALUES
 (200, 199),
 (1, 200);
 
-INSERT INTO users (username, password_hash, email, [role], created_at, last_login, status_id) 
+INSERT INTO [user] (username, password_hash, email, [role], created_at, last_login, status_id) 
 VALUES
 	('adam_nowak', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'adam.nowak@biblioteka.com', 'admin', '2024-02-11', '2025-04-04', 1),
 	('anna_kowalska', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'anna.kowalska@biblioteka.com', 'admin', '2024-02-12', '2025-04-03', 1),
