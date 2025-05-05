@@ -17,7 +17,7 @@ CREATE TABLE [status] (
 	status_name VARCHAR(50) NOT NULL,
 	status_desc VARCHAR(200),
 	status_type VARCHAR(50),
-	[status] BIT
+	[status] VARCHAR(30)
 );
 
 -- Tabela: Autorzy
