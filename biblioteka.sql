@@ -127,7 +127,7 @@ CREATE TABLE fine (
 );
 
 -- Wstawienie statusów
-INSERT INTO [status] (status_name, status_desc, status_type, [status])
+INSERT INTO [status] (status_name, status_type, [status])
 VALUES 
 ('Nowa rezerwacja', 'reservations', 'active'),
 ('Oczekująca rezerwacja', 'reservations', 'active'),
