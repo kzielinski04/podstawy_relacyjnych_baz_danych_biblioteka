@@ -415,7 +415,17 @@ VALUES
 ('Michał', 'Kowalski', '1982-11-22', 1, 'Autor poradników związanych z końmi.', 1),
 ('Ewa', 'Wiśniewska', '1968-09-05', 1, 'Pisarka, autorka powieści obyczajowych.', 1),
 ('John', 'Smith', '1970-04-18', 7, 'Amerykański autor książek technicznych.', 1),
-('Maria', 'Garcia', '1985-07-30', 9, 'Hiszpańska autorka literatury dziecięcej.', 1)
+('Maria', 'Garcia', '1985-07-30', 9, 'Hiszpańska autorka literatury dziecięcej.', 1),
+('Madeline', 'Miller', '1978-07-24', 1, 'Amerykańska pisarka, autorka książek fantasy osadzonych w świecie mitologii greckiej.', 1),
+('Dmitry', 'Glukhovsky', '1979-06-12', 2, 'Rosyjski pisarz, dziennikarz, korespondent wojenny, felietonista, radiowiec, prezenter telewizyjny.', 1),
+('Osamu', 'Dazai', '1909-06-19', 3, 'Prozaik japoński. Był autorem pesymistycznych utworów, w których poruszał problemy zubożałej arystokracji i inteligencji japońskiej.', 1),
+('Rafał', 'Kosik', '1971-10-08', 4, 'Polski pisarz science fiction, założyciel wydawnictwa Powergraph.', 1),
+('Erich Maria', 'Remarque', '1898-06-22', 5, 'Niemiecki pisarz, dramaturg, dziennikarz, weteran I wojny światowej.', 1),
+('Jane', 'Austen', '1775-12-16', 6, 'Autorka powieści opisujących życie angielskiej klasy wyższej z początku XIX wieku.', 1),
+('Howard Phillips', 'Lovecraft', '1890-08-20', 1, 'Amerykański pisarz, autor opowieści grozy (weird fiction) i fantasy, twórca mitologii Cthulhu.', 1),
+('Maya Lin', 'Wang', '1992-03-21', 1, 'Autorka fantasy.', 1),
+('Przemysław', 'Piotrowski', '1982-06-05', 4, 'Polski dziennikarz związany z tematyką sportową i śledczą, pisarz.', 1),
+('Charlie', 'Donlea', '1982-01-13', 1, 'Autor kryminałów.', 1)
 GO
 
 -- Dodanie książek (dostosowane do oryginalnej struktury tabeli books)
@@ -430,7 +440,17 @@ VALUES
 ('Blockchain', 'Informatyka', 'PWN', 2020, '9788328356786', 1, 1),
 ('Learn Swift by examples', 'Informatyka', 'PWN', 2021, '9788328356793', 1, 1),
 ('NoSQL. Theory and examples', 'Informatyka', 'PWN', 2022, '9788328356809', 1, 1),
-('Engineering of Big Data Processing', 'Informatyka', 'PWN', 2023, '9788328356816', 2, 1)
+('Engineering of Big Data Processing', 'Informatyka', 'PWN', 2023, '9788328356816', 2, 1),
+('Pieśń o Achillesie', 'powieść historyczna', 'Albatros', 2022, '9788367338615', 1, 1),
+('Metro 2033', 'powieść przygodowa', 'Insignis', 2022, '9788367323475', 1, 1),
+('Zatracenie', 'powieść psychologiczna', 'Czytelnik', 2025, '9788307036533', 1, 1),
+('Cyberpunk 2077. Bez przypadku', 'science fiction', 'Powergraph', 2023, '9788366178984', 1, 1),
+('Na Zachodzie bez zmian', 'powieść wojenna', 'Rebis', 2025, '9788383383392', 1, 1),
+('Duma i uprzedzenie', 'powieść obyczajowa', 'Świat Książki', 2024, '9788382891362', 1, 1),
+('Zgroza w Dunwich i inne przerażające opowieści', 'horror', 'Vesper', 2012, '9788377310984', 1, 1),
+('Miecz Kaigenu', 'fantasy', 'Vesper', 2024, '9788377314968', 1, 1),
+('Mężczyzna, który rozmawiał z hienami', 'kryminał', 'Czarna Owca', 2025, '9788383825007', 1, 1),
+('Idealne morderstwo', 'kryminał', 'Filia', 2022, '9788382801101', 1, 1);
 GO
 
 -- Dodanie powiązań autorów z książkami
@@ -450,30 +470,6 @@ GO
 
 USE [Biblioteka_g2]
 GO
-
--- 1. Najpierw dodajemy statusy, jeśli tabela jest pusta
-IF NOT EXISTS (SELECT 1 FROM dbo.[status])
-BEGIN
-    INSERT INTO dbo.[status] ([id], [nazwa], [typ], [status])
-    VALUES 
-    (1, 'Dostepna', 'books', '1'),
-    (2, 'Wypozyczona', 'books', '1'),
-    (3, 'Zaginiona', 'books', '1'),
-    (4, 'W trakcie naprawy', 'books', '1'),
-    (5, 'Oczekujacy na aktywacje', 'users', '1'),
-    (6, 'Konto wygaslo', 'users', '1'),
-    (7, 'Zablokowany', 'users', '1'),
-    (8, 'W trakcie weryfikacji', 'users', '1'),
-    (9, 'Zawieszony', 'users', '1'),
-    (10, 'Zwrocona', 'borrowing', '1'),
-    (11, 'Przetrzymywana', 'borrowing', '1'),
-    (12, 'Zrealizowana', 'reservation', '1'),
-    (13, 'Anulowana', 'reservation', '1'),
-    (14, 'Oplacone', 'fine', '1'),
-    (15, 'Nieoplacone', 'fine', '1')
-END
-GO
-
 -- 2. Tworzenie brakujących tabel, jeśli nie istnieją
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'country')
 BEGIN
@@ -607,53 +603,6 @@ BEGIN
     ALTER TABLE [dbo].[fine] WITH CHECK ADD FOREIGN KEY([borrowing_id]) REFERENCES [dbo].[borrowing] ([id])
     ALTER TABLE [dbo].[fine] WITH CHECK ADD FOREIGN KEY([status_id]) REFERENCES [dbo].[status] ([id])
 END
-GO
-
--- 3. Wstawianie danych
-
--- Kraje
-INSERT INTO dbo.country(country, country_short)
-VALUES 
-('Stany Zjednoczone', 'US'),
-('Rosja', 'RU'),
-('Japonia', 'JP'),
-('Polska', 'PL'),
-('Niemcy', 'DE'),
-('Wielka Brytania', 'UK'),
-('Francja', 'FR'),
-('Palau', 'PW'),
-('Togo', 'TG'),
-('Włochy', 'IT')
-GO
-
--- Książki (dostosowane do oryginalnej struktury tabeli books)
-INSERT INTO dbo.books(title, category, publisher, publicationYear, isbn, statusID, audit_user)
-VALUES 
-('Pieśń o Achillesie', 'powieść historyczna', 'Albatros', 2022, '9788367338615', 1, 1),
-('Metro 2033', 'powieść przygodowa', 'Insignis', 2022, '9788367323475', 1, 1),
-('Zatracenie', 'powieść psychologiczna', 'Czytelnik', 2025, '9788307036533', 1, 1),
-('Cyberpunk 2077. Bez przypadku', 'science fiction', 'Powergraph', 2023, '9788366178984', 1, 1),
-('Na Zachodzie bez zmian', 'powieść wojenna', 'Rebis', 2025, '9788383383392', 1, 1),
-('Duma i uprzedzenie', 'powieść obyczajowa', 'Świat Książki', 2024, '9788382891362', 1, 1),
-('Zgroza w Dunwich i inne przerażające opowieści', 'horror', 'Vesper', 2012, '9788377310984', 1, 1),
-('Miecz Kaigenu', 'fantasy', 'Vesper', 2024, '9788377314968', 1, 1),
-('Mężczyzna, który rozmawiał z hienami', 'kryminał', 'Czarna Owca', 2025, '9788383825007', 1, 1),
-('Idealne morderstwo', 'kryminał', 'Filia', 2022, '9788382801101', 1, 1)
-GO
-
--- Autorzy
-INSERT INTO dbo.authors(first_name, last_name, birth_date, country_id, biography, audit_user)
-VALUES 
-('Madeline', 'Miller', '1978-07-24', 1, 'Amerykańska pisarka, autorka książek fantasy osadzonych w świecie mitologii greckiej.', 1),
-('Dmitry', 'Glukhovsky', '1979-06-12', 2, 'Rosyjski pisarz, dziennikarz, korespondent wojenny, felietonista, radiowiec, prezenter telewizyjny.', 1),
-('Osamu', 'Dazai', '1909-06-19', 3, 'Prozaik japoński. Był autorem pesymistycznych utworów, w których poruszał problemy zubożałej arystokracji i inteligencji japońskiej.', 1),
-('Rafał', 'Kosik', '1971-10-08', 4, 'Polski pisarz science fiction, założyciel wydawnictwa Powergraph.', 1),
-('Erich Maria', 'Remarque', '1898-06-22', 5, 'Niemiecki pisarz, dramaturg, dziennikarz, weteran I wojny światowej.', 1),
-('Jane', 'Austen', '1775-12-16', 6, 'Autorka powieści opisujących życie angielskiej klasy wyższej z początku XIX wieku.', 1),
-('Howard Phillips', 'Lovecraft', '1890-08-20', 1, 'Amerykański pisarz, autor opowieści grozy (weird fiction) i fantasy, twórca mitologii Cthulhu.', 1),
-('Maya Lin', 'Wang', '1992-03-21', 1, 'Autorka fantasy.', 1),
-('Przemysław', 'Piotrowski', '1982-06-05', 4, 'Polski dziennikarz związany z tematyką sportową i śledczą, pisarz.', 1),
-('Charlie', 'Donlea', '1982-01-13', 1, 'Autor kryminałów.', 1)
 GO
 
 -- Autorzy-Książki
