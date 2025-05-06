@@ -1,4 +1,3 @@
--- Tworzenie bazy danych
 --CREATE DATABASE [Biblioteka_g2_xx];
 --GO
 USE [Biblioteka_g2_xx];
