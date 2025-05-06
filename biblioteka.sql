@@ -933,6 +933,7 @@ VALUES	(1, 1),
 	(200, 199),
 	(1, 200);
 
+-- Dodanie użytkowników
 INSERT INTO [user] (username, password_hash, email, [role], created_at, last_login, status_id)
 VALUES	('monika_wojcik0', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'monika.wojcik0@biblioteka.com', 'user', '2024-03-05', '2025-01-29', 2),
 	('bartek_kopczyk1', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'bartek.kopczyk1@biblioteka.com', 'admin', '2024-03-31', '2025-01-22', 2),
@@ -1135,6 +1136,8 @@ VALUES	('monika_wojcik0', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11e
 	('urszula_zwara198', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'urszula.zwara198@biblioteka.com', 'admin', '2024-03-11', '2025-03-10', 3),
 	('karol_mostek199', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'karol.mostek199@biblioteka.com', 'librarian', '2024-02-28', '2025-01-30', 1);
 
+
+-- Dodanie czytelników
 INSERT INTO readers([user_id], first_name, last_name, [address], phone, registration_date, status_id)
 VALUES	(11, 'Ernest', 'Pacura', 'aleja Waryńskiego 647, 93-824 Chorzów', '706826999', '2023-01-15', 2),
 	(12, 'Patryk', 'Pawela', 'aleja Pogodna 15/78, 56-593 Zgorzelec', '521734886', '2023-01-16', 2),
@@ -1326,7 +1329,7 @@ VALUES	(11, 'Ernest', 'Pacura', 'aleja Waryńskiego 647, 93-824 Chorzów', '7068
 	(198, 'Angelika', 'Matusewicz', 'ul. Bałtycka 698, 59-863 Będzin', '520306810', '2023-07-21', 2),
 	(199, 'Patryk', 'Ślebioda', 'plac Poznańska 152, 06-704 Kraśnik', '679895731', '2023-07-22', 3);
 
-
+-- Dodanie wypożyczeń
 INSERT INTO dbo.borrowing(book_id, readers_id, borrowing_date, return_date, due, status_id)
 VALUES  (16, 12, '2025-02-11', '2025-03-09', 28, 1),
 	(42, 5, '2025-01-15', '2025-02-12', 28, 1),
@@ -1447,6 +1450,7 @@ VALUES  (16, 12, '2025-02-11', '2025-03-09', 28, 1),
 	(15, 168, '2025-12-28', '2026-01-25', 28, 1),
 	(170, 41, '2025-12-31', '2026-01-28', 28, 1);
 
+-- Dodanie rezerwacji
 INSERT INTO reservation(book_id, readers_id, reservation_date, status_id)
 VALUES	(1, 101, '2025-01-05', 1),
 	(2, 102, '2025-01-12', 1),
@@ -1549,6 +1553,7 @@ VALUES	(1, 101, '2025-01-05', 1),
 	(99, 14, '2025-10-29', 1),
 	(100, 15, '2025-11-07', 1);
 
+-- Dodanie kar
 INSERT INTO dbo.fine(borrowing_id, amount, date_issue, date_pay, status_id)
 VALUES	(1, 1100.00, '2025-01-16', NULL, 15),
 	(2, 850.50, '2025-02-05', '2025-02-20', 16),
